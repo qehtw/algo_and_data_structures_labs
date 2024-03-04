@@ -1,8 +1,7 @@
 import unittest
 
-from sem2.lab2.suma import suma
+from Lab2 import suma
 
-__import__(suma)
 
 
 class TestFindSum(unittest.TestCase):
@@ -11,6 +10,18 @@ class TestFindSum(unittest.TestCase):
         goal = 6
         self.assertTrue(suma(new_arr, goal))
 
+    def test_valid_sum_exists(self):
+        new_arr = [1, 3, 5, 6]
+        goal = 9
+        self.assertTrue(suma(new_arr, goal))
+
+    def test_valid_sum_exists(self):
+        new_arr = [2, 4, 8, 15]
+        goal = 14
+        self.assertTrue(suma(new_arr, goal))
+
+
 
 if __name__ == '__main__':
     unittest.main()
+
