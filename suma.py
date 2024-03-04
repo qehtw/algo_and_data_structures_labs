@@ -1,32 +1,31 @@
-def suma(new_arr, goal):
-    new_arr.sort()
-    n = len(new_arr)
+def suma(my_arr, res):
+    my_arr.sort()
+    n = len(my_arr)
 
     if n < 3 or n > 1000:
         raise ValueError(f'Розмір масиву має бути в межах від 3 до 1000.')
 
-    for num in new_arr:
+    for num in my_arr:
         if num < 1 or num > 10 ** 9:
             raise ValueError(f'Елементи масиву мають бути в межах від 1 до 10^9.')
 
-    if goal < 1 or goal > 3 * 10 ** 9:
+    if res < 1 or res > 3 * 10 ** 9:
         raise ValueError(f'Число P має бути в межах від 1 до 3*10^9.')
 
     for i in range(n - 2):
         left = i + 1
         right = n - 1
         while left < right:
-            current_sum = new_arr[i] + new_arr[left] + new_arr[right]
-            if current_sum == goal:
+            current_sum = my_arr[i] + my_arr[left] + my_arr[right]
+            if current_sum == res:
                 return True
-            elif current_sum < goal:
+            elif current_sum < res:
                 left += 1
             else:
                 right -= 1
     return False
 
 
-# Приклад використання
-new_arr = [1, 2, 3, 6]
-goal = 6
-print(suma(new_arr, goal))
+my_arr = [1, 2, 3, 6]
+res = 6
+print(suma(my_arr, res))
