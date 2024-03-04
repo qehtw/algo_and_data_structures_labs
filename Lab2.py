@@ -20,6 +20,15 @@ def suma(my_arr, res):
             if current_sum == res:
                 return True
             elif current_sum < res:
+                left_index, right_index = left + 1, right
+                while left_index <= right_index:
+                    mid = left_index + (right_index - left_index) // 2
+                    if my_arr[mid] == res - my_arr[i] - my_arr[left]:
+                        return True
+                    elif my_arr[mid] < res - my_arr[i] - my_arr[left]:
+                        left_index = mid + 1
+                    else:
+                        right_index = mid - 1
                 left += 1
             else:
                 right -= 1
