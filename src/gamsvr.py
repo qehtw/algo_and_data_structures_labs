@@ -1,4 +1,4 @@
-from priority_queue import PriorityQueue
+from red_black_priority_queue import *
 
 INF = float('inf')
 
@@ -6,11 +6,11 @@ def find_shortest_path(graph, start_p, clients):
     dist = {node: INF for node in graph}
     dist[start_p] = 0
     visited_nodes = set()
-    pq = PriorityQueue()
-    pq.enqueue(start_p, 0)
+    pq = RedBlackTree()
+    pq.insert(start_p, 0)
 
-    while not pq.is_empty():
-        vertex, current_dist = pq.dequeue()
+    while not pq.root():
+        vertex, current_dist = pq.delete()
         if vertex is None:
             break
         if vertex in visited_nodes:
@@ -25,7 +25,7 @@ def find_shortest_path(graph, start_p, clients):
                 new_dist = current_dist + latency
             if new_dist < dist[next_v]:
                 dist[next_v] = new_dist
-                pq.enqueue(next_v, new_dist)
+                pq.insert(next_v, new_dist)
 
     return dist
 
@@ -68,5 +68,5 @@ input_filename = "gamsrv.in"
 output_filename = "gamsrv.out"
 
 N, M, clients, connections = read_input(input_filename)
-latency = find_min_max_latency(M, N, clients, connections)
+latency = find_min_max_latency(N, M, clients, connections)
 create_output(latency, output_filename)
