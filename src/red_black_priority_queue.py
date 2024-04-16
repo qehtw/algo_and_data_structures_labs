@@ -265,17 +265,3 @@ class RedBlackTree:
 
     def print_tree(self):
         self.__printCall(self.root, "", True)
-
-
-
-if __name__ == "__main__":
-    rbt = RedBlackTree()
-
-    rbt.insert(55, 1)
-    rbt.insert(40, 2)
-    rbt.insert(65, 3)
-    rbt.insert(60, 4)
-    rbt.insert(75, 5)
-    rbt.insert(57, 6)
-
-    rbt.print_tree()
