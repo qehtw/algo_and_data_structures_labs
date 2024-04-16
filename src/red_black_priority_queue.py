@@ -2,7 +2,7 @@ class Node:
     def __init__(self, val, priority, color=0):
         self.val = val
         self.priority = priority
-        self.color = color
+        self.color = 1
         self.parent = None
         self.left = None
         self.right = None
@@ -12,9 +12,33 @@ class RedBlackTree:
     def __init__(self):
         self.root = None
 
+    def insert(self, val, priority):
+        node = Node(val, priority)
+        if self.root is None:
+            self.root = node
+            self.root.color = 0
+            return
+
+        parent = None
+        current = self.root
+        while current:
+            parent = current
+            if priority < current.priority:
+                current = current.left
+            else:
+                current = current.right
+
+        node.parent = parent
+        if priority < parent.priority:
+            parent.left = node
+        else:
+            parent.right = node
+
+        self.fix_insert(node)
+
     def fix_insert(self, node):
         while node.parent and node.parent.color == 1:
-            if node.parent.parent:  # Check if node.parent.parent is not None
+            if node.parent.parent:
                 if node.parent == node.parent.parent.left:
                     uncle = node.parent.parent.right
                     if uncle and uncle.color == 1:
@@ -43,39 +67,13 @@ class RedBlackTree:
                         node.parent.color = 0
                         node.parent.parent.color = 1
                         self.rotate_left(node.parent.parent)
-            else:  
+            else:  # If node.parent.parent is None, set root's color to black
                 self.root.color = 0
                 break
 
         self.root.color = 0
 
-
-    def insert(self, val, priority):
-        node = Node(val, priority)
-        if self.root is None:
-            self.root = node
-            self.root.color = 0
-            return
-
-        parent = None
-        current = self.root
-        while current:
-            parent = current
-            if priority < current.priority:
-                current = current.left
-            else:
-                current = current.right
-
-        node.parent = parent
-        if priority < parent.priority:
-            parent.left = node
-        else:
-            parent.right = node
-
-        self.insert_fix(node)
-        
-
-        def fix_delete(self, node):
+    def fix_delete(self, node):
         if node is None:
             return
 
@@ -133,8 +131,7 @@ class RedBlackTree:
                     self.rotate_right(node.parent)
                     node = self.root
 
-
-     def delete(self):
+    def delete(self):
         if self.root is None:
             return
 
@@ -268,11 +265,3 @@ class RedBlackTree:
 
     def print_tree(self):
         self.__printCall(self.root, "", True)
-
-
-
-if __name__ == "__main__":
-    rbt = RedBlackTree()
-
-    rbt.insert(55, 1)
-    rbt.insert(40, 2)
