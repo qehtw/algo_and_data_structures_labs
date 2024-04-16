@@ -2,7 +2,7 @@ class Node:
     def __init__(self, val, priority, color=1):
         self.val = val
         self.priority = priority
-        self.color = color
+        self.color = 1
         self.parent = None
         self.left = None
         self.right = None
@@ -14,26 +14,50 @@ class RedBlackTree:
 
     def insert_fix(self, node):
         while node.parent and node.parent.color == 1:
-            if node.parent.left == node.parent:
-                self.__parent_is_left_child(node)
+            if node.parent.parent:
+                if node.parent == node.parent.parent.left:
+                    uncle = node.parent.parent.right
+                    if uncle and uncle.color == 1:
+                        node parent color = 0 
+                        uncle.color = 0
+                        node.parent.parent.color = 1
+                        node = node.parent.parent
+                    else:
+                        if node == node.parent.right:
+                            node = node.parent
+                            self.rotate_right(node.parent.parent)
+                else:
+                    uncle = node.parent.parent.left
+                    if uncle and uncle.color == 1:
+                        node.parent.color = 0
+                        uncle.color = 0
+                        node.parent.parent.color = 1
+                        node = node.parent.parent
+                    else:
+                        if node == node.parent.left:
+                            node = node.parent
+                            self.rotate_right(node)
+                        node.parent.color = 0
+                        node.parent.parent.color = 1
+                        self.rotate_left(node.parent.parent)         
             else:
-                self.__parent_is_right_child(node)
-            if node == self.root:
+                self.root.color = 0
                 break
-            self.root.color = 0
+                
+        self.root.color = 0
 
     def insert(self, val, priority):
         node = Node(val, priority)
-        root = self.root
-        current_node = None
-
         if self.root is None:
-            self.root = Node(val, priority, color=0)
+            self.root = node
+            self.root.color = 0
             return
-
-        while root is not None:
-            current_node = root
-            if root.priority is None or priority >= root.priority:
+            
+        parent = None
+        current = self.root
+        while current:
+            parent = current
+            if 
                 root = root.left
             else:
                 root = root.right
