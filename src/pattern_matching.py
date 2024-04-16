@@ -1,6 +1,5 @@
-from typing import List, Dict
-def build_automaton(needle_value: str) -> List[Dict[str, int]]:
-    automaton = [dict() for _ in range(len(needle_value) + 1)]
+def build_automaton(needle_value: str) -> list:
+    automaton = [{} for _ in range(len(needle_value) + 1)]
     m = len(needle_value)
 
     for i in range(m):
@@ -20,7 +19,7 @@ def build_automaton(needle_value: str) -> List[Dict[str, int]]:
     return automaton
 
 
-def search(needle_value: str, haystack_value: str) -> List[int]:
+def search(needle_value: str, haystack_value: str) -> list:
     automaton = build_automaton(needle_value)
     m, n = len(needle_value), len(haystack_value)
 
@@ -39,14 +38,4 @@ def search(needle_value: str, haystack_value: str) -> List[int]:
             j = automaton[j - 1].get(haystack_value[i], 0)
 
     return indices
-
-
-if __name__ == "__main__":
-    haystack = str(input("Введіть <<haystack>>: "))
-    needle = str(input("Введіть <<needle>>: "))
-
-    result = search(needle, haystack)
-    if result:
-        print(f"Індекси входжень підстрічки '{needle}' в стрічці '{haystack}': {result}")
-    else:
-        print(f"Підстрічка '{needle}' не знайдена в стрічці '{haystack}'")
+    
