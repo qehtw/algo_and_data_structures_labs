@@ -26,14 +26,3 @@ def search(needle_value: str, haystack_value: str) -> list:
 
     indices = [index for index in indices if index >= 0]
     return indices
-
-
-if __name__ == "__main__":
-    haystack_value = str(input("Введіть <<haystack>>: "))
-    needle_value = str(input("Введіть <<needle>>: "))
-
-    result = search(needle_value, haystack_value)
-    if result:
-        print(f"Індекси входжень підстрічки '{needle_value}' в стрічці '{haystack_value}': {result}")
-    else:
-        print(f"Підстрічка '{needle_value}' не знайдена в стрічці '{haystack_value}'")
