@@ -25,11 +25,3 @@ def branch_sums(root):
     right_sum = branch_sums(root.right)
 
     return left_sum + right_sum
-
-
-root = BinaryTree(3)
-root.left = BinaryTree(9)
-root.right = BinaryTree(20)
-root.right.right = BinaryTree(7)
-root.right.left = BinaryTree(15)
-print("Sum of left leaves is", branch_sums(root))
