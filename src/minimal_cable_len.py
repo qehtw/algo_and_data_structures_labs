@@ -16,7 +16,7 @@ def merge_sets(parent, rank, vertex_1, vertex_2):
         rank[root_vertex_1] += 1
 
 
-def kruskal(matrix):
+def find_mst_lenght(matrix):
     num_vertices = len(matrix)
     edges = []
     for i, j in ((i, j) for i in range(num_vertices) for j in range(num_vertices)):
