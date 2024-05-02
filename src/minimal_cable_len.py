@@ -34,25 +34,3 @@ def kruskal(matrix):
             merge_sets(parent, rank, root_vertex_1, root_vertex_2)
             mst_len += cost
     return mst_len
-
-
-def read_input(input_filename):
-    adjacency_matrix = []
-    with open(input_filename, "r") as file:
-        for line in file:
-            row = [int(val) for val in line.strip().split(",")]
-            adjacency_matrix.append(row)
-    file.close()
-    return adjacency_matrix
-
-
-def create_output(output_filename, content):
-    file = open(output_filename, "w")
-    file.write(str(content))
-    file.close()
-
-
-adjacency_matrix = read_input("islands.csv")
-mst_weight = kruskal(adjacency_matrix)
-output_filename = "islands.out"
-create_output(output_filename, mst_weight)
