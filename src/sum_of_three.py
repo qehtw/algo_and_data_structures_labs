@@ -34,8 +34,3 @@ def suma(my_arr, res):
                 right -= 1
 
     return False
-
-
-my_arr = [1, 2, 3, 6]
-res = 6
-print(suma(my_arr, res))

@@ -9,8 +9,3 @@ def robot(n, m):
                 route.append((row - 1) * n + i)
 
     return route
-
-
-n = 5
-m = 5
-print(robot(n, m))
