@@ -16,7 +16,7 @@ def merge_sets(parent, rank, vertex_1, vertex_2):
         rank[root_1] += 1
 
 
-def find_mst_lenght(matrix):
+def find_mst_length(matrix):
     number_of_vertex = len(matrix)
     edges = []
     for i, j in ((i, j) for i in range(number_of_vertex) for j in range(number_of_vertex)):
@@ -53,6 +53,6 @@ def create_output(output_filename, content):
 
 
 adjacency_matrix = read_input("islands.csv")
-mst_weight = find_mst_lenght(adjacency_matrix)
+mst_weight = find_mst_length(adjacency_matrix)
 output_filename = "islands.out"
 create_output(output_filename, mst_weight)
