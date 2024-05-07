@@ -1,5 +1,5 @@
 class Node:
-    def __init__(self, val, priority, color=0):
+    def __init__(self, val, priority):
         self.val = val
         self.priority = priority
         self.color = 1
@@ -37,6 +37,9 @@ class RedBlackTree:
         self.fix_insert(node)
 
     def fix_insert(self, node):
+        if node is None:
+            return
+
         while node.parent and node.parent.color == 1:
             if node.parent.parent:
                 if node.parent == node.parent.parent.left:
@@ -73,64 +76,6 @@ class RedBlackTree:
 
         self.root.color = 0
 
-    def fix_delete(self, node):
-        if node is None:
-            return
-
-        while node != self.root and (node is None or node.color == 0):
-            if node == node.parent.left:
-                sibling = node.parent.right
-                if sibling.color == 1:
-                    sibling.color = 0
-                    node.parent.color = 1
-                    self.rotate_left(node.parent)
-                    sibling = node.parent.right
-
-                if (sibling.left is None or sibling.left.color == 0) and (
-                        sibling.right is None or sibling.right.color == 0
-                ):
-                    sibling.color = 1
-                    node = node.parent
-                else:
-                    if sibling.right is None or sibling.right.color == 0:
-                        sibling.left.color = 0
-                        sibling.color = 1
-                        self.rotate_right(sibling)
-                        sibling = node.parent.right
-
-                    sibling.color = node.parent.color
-                    node.parent.color = 0
-                    if sibling.right:
-                        sibling.right.color = 0
-                    self.rotate_left(node.parent)
-                    node = self.root
-            else:
-                sibling = node.parent.left
-                if sibling.color == 1:
-                    sibling.color = 0
-                    node.parent.color = 1
-                    self.rotate_right(node.parent)
-                    sibling = node.parent.left  # Corrected line
-
-                if (sibling.right is None or sibling.right.color == 0) and (
-                        sibling.left is None or sibling.left.color == 0
-                ):
-                    sibling.color = 1
-                    node = node.parent
-                else:
-                    if sibling.left is None or sibling.left.color == 0:
-                        sibling.right.color = 0
-                        sibling.color = 1
-                        self.rotate_left(sibling)
-                        sibling = node.parent.left
-
-                    sibling.color = node.parent.color
-                    node.parent.color = 0
-                    if sibling.left:
-                        sibling.left.color = 0
-                    self.rotate_right(node.parent)
-                    node = self.root
-
     def delete(self):
         if self.root is None:
             return
@@ -142,6 +87,89 @@ class RedBlackTree:
         self.delete_node(node)
         return node.val, node.priority
 
+    def fix_delete(self, node):
+        if node is None:
+            return
+
+        while node != self.root and (node.color == 0 if node else True):
+            if node.parent is None:
+                break
+
+            if node == node.parent.left:
+                sibling = node.parent.right
+
+                if sibling and sibling.color == 1:
+                    sibling.color = 0
+                    node.parent.color = 1
+                    self.rotate_left(node.parent)
+                    sibling = node.parent.right
+
+                if sibling:
+                    if ((sibling.left is None or sibling.left.color == 0) and (
+                            (sibling.right is None or sibling.right.color == 0))):
+                        sibling.color = 1
+                        node = node.parent
+                    else:
+                        if sibling.right is None or sibling.right.color == 0:
+                            sibling.left.color = 0
+                            sibling.color = 1
+                            self.rotate_right(sibling)
+                            sibling = node.parent.right
+
+                        sibling.color = node.parent.color
+                        node.parent.color = 0
+                        if sibling.right:
+                            sibling.right.color = 0
+                        self.rotate_left(node.parent)
+                        node = self.root
+            else:
+                sibling = node.parent.left
+
+                if sibling and sibling.color == 1:
+                    sibling.color = 0
+                    node.parent.color = 1
+                    self.rotate_right(node.parent)
+                    sibling = node.parent.left
+
+                if sibling:
+                    if ((sibling.right is None or sibling.right.color == 0) and (
+                            sibling.left is None or sibling.left.color == 0)):
+                        sibling.color = 1
+                        node = node.parent
+                    else:
+                        if sibling.left is None or sibling.left.color == 0:
+                            sibling.right.color = 0
+                            sibling.color = 1
+                            self.rotate_left(sibling)
+                            sibling = node.parent.left
+
+                        sibling.color = node.parent.color
+                        node.parent.color = 0
+                        if sibling.left:
+                            sibling.left.color = 0
+                        self.rotate_right(node.parent)
+                        node = self.root
+
+        self.root.color = 0
+
+    def get_successor(self, node):
+        if node.right:
+            # If the node has a right subtree, find the leftmost node in that subtree.
+            successor = node.right
+            while successor.left:
+                successor = successor.left
+            return successor
+        else:
+            successor = None
+            current = self.root
+            while current != node:
+                if node.val < current.val:
+                    successor = current
+                    current = current.left
+                else:
+                    current = current.right
+            return successor
+        
     def delete_node(self, node):
         if node is None:
             return
@@ -183,14 +211,13 @@ class RedBlackTree:
             node.parent.color = 0
             node.parent.parent.right.color = 0
             node.parent.parent.color = 1
-            node = node.parent.parent
         else:
             if node == node.parent.right:
                 node = node.parent
-                self.left_rotate(node)
+                self.rotate_left(node)
             node.parent.color = 0
             node.parent.parent.color = 1
-            self.right_rotate(node.parent.parent)
+            self.rotate_right(node.parent.parent)
 
     def __parent_is_right_child(self, node):
         if node.parent.parent is None:
@@ -199,14 +226,13 @@ class RedBlackTree:
             node.parent.parent.left.color = 0
             node.parent.color = 0
             node.parent.parent.color = 1
-            node = node.parent.parent
         else:
             if node == node.parent.left:
                 node = node.parent
-                self.right_rotate(node)
+                self.rotate_right(node)
             node.parent.color = 0
             node.parent.parent.color = 1
-            self.left_rotate(node.parent.parent)
+            self.rotate_left(node.parent.parent)
 
     def rotate_left(self, node):
         right_child = node.right
@@ -249,7 +275,7 @@ class RedBlackTree:
         print(node.val, node.priority, node.color)
         self._inorder_tree(node.right)
 
-    def __printCall(self, node, indent, last):
+    def __print_call(self, node, indent, last):
         if node:
             print(indent, end="")
             if last:
@@ -260,8 +286,9 @@ class RedBlackTree:
                 indent += "|    "
 
             print(str(node.val) + "(" + str(node.color) + ")")
-            self.__printCall(node.left, indent, False)
-            self.__printCall(node.right, indent, True)
+            self.__print_call(node.left, indent, False)
+            self.__print_call(node.right, indent, True)
 
     def print_tree(self):
-        self.__printCall(self.root, "", True)
+        self.__print_call(self.root, "", True)
+        
