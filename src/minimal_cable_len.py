@@ -19,11 +19,11 @@ def merge_sets(parent, rank, vertex_1, vertex_2):
 def find_mst_length(matrix):
     number_of_vertex = len(matrix)
     edges = []
-    for i, j in ((i, j) for i in range(number_of_vertex) for j in range(number_of_vertex)):
-        if matrix[i][j] != 0:
-            edges.append((matrix[i][j], i, j))
+    for v1, v2 in ((v1, v2) for v1 in range(number_of_vertex) for v2 in range(number_of_vertex)):
+        if matrix[v1][v2] != 0:
+            edges.append((matrix[v1][v2], v1, v2))
     edges.sort()
-    parent = [i for i in range(number_of_vertex)]
+    parent = [v1 for v1 in range(number_of_vertex)]
     rank = [0] * number_of_vertex
     mst_len = 0
     for edge in edges:
