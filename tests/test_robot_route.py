@@ -1,6 +1,6 @@
 import unittest
 
-from robot_route import robot
+from src.robot_route import *
 
 class TestRobotFunc(unittest.TestCase):
     def test_robot_5_5(self):

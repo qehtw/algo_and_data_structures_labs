@@ -57,11 +57,7 @@ def create_output(output_filename, filled_screen):
     file.close()
 
 
-input_filename = "input.txt"
-output_filename = "output.txt"
+input_filename = "../src/resources/input.txt"
+output_filename = "../src/resources/output.txt"
 
 
-m, n, x, y, new_color, screen = read_input(input_filename)
-prev_color = screen[x][y]
-filled_screen = flood_fill(screen, m, n, x, y, prev_color, new_color)
-create_output(output_filename, filled_screen)

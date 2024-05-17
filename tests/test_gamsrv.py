@@ -1,6 +1,5 @@
 import unittest
-from gamsvr import find_shortest_path, find_min_max_latency
-
+from src.gamsrv import *
 
 INF = float('inf')
 

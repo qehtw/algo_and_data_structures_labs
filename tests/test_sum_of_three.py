@@ -1,6 +1,6 @@
 import unittest
 
-from sum_of_three import suma
+from src.sum_of_three import *
 
 
 class TestFindSum(unittest.TestCase):

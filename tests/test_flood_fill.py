@@ -1,5 +1,5 @@
 import unittest
-from flood_fill import flood_fill, is_valid
+from src.flood_fill import *
 
 
 class TestFloodFill(unittest.TestCase):

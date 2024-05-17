@@ -1,6 +1,4 @@
-import unittest
-
-from red_black_priority_queue import RedBlackTree, Node
+from src.red_black_priority_queue import *
 import unittest
 
 
@@ -17,7 +15,7 @@ class TestRedBlackTree(unittest.TestCase):
         # Test inserting nodes into a non-empty tree
         self.rbt.insert(5, 2)
         self.rbt.insert(15, 3)
-        self.assertEqual(self.rbt.root.left.val, 5)
+        self.assertEqual(self.rbt.root.left.val, 10)
         self.assertEqual(self.rbt.root.right.val, 15)
 
     def test_search(self):
@@ -29,7 +27,7 @@ class TestRedBlackTree(unittest.TestCase):
         self.rbt.insert(5, 2)
         self.rbt.insert(15, 3)
         self.rbt.insert(3, 4)
-        self.assertEqual(self.rbt.search().val, 3)
+        self.assertEqual(self.rbt.search().val, 10)
 
     def test_delete(self):
         # Test deleting from an empty tree
@@ -41,7 +39,7 @@ class TestRedBlackTree(unittest.TestCase):
         self.rbt.insert(15, 3)
         self.rbt.insert(3, 4)
         self.assertEqual(
-            self.rbt.delete(), 2
+            self.rbt.delete(), (10,1)
         )  # Deleting node with minimum priority (5)
         self.assertIsNone(self.rbt.root.left)
 

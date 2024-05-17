@@ -52,7 +52,7 @@ def create_output(output_filename, content):
     file.close()
 
 
-adjacency_matrix = read_input("islands.csv")
+adjacency_matrix = read_input("../src/resources/islands.csv")
 mst_weight = find_mst_length(adjacency_matrix)
-output_filename = "islands.out"
+output_filename = "../src/resources/islands.out"
 create_output(output_filename, mst_weight)

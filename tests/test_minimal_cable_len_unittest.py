@@ -1,5 +1,5 @@
 import unittest
-from minimal_cable_len import find_mst_lenght
+from src.minimal_cable_len import *
 
 
 class TestKraskal(unittest.TestCase):
@@ -9,7 +9,7 @@ class TestKraskal(unittest.TestCase):
                   [7, 9, 0, 8, 5],
                   [5, 6, 8, 0, 7],
                   [10, 20, 5, 7, 0]]
-        self.assertEqual(find_mst_lenght(matrix), 22)
+        self.assertEqual(find_mst_length(matrix), 22)
 
 
     def test_2(self):
@@ -17,7 +17,7 @@ class TestKraskal(unittest.TestCase):
                   [1, 0, 2, 1],
                   [4, 2, 0, 5],
                   [3, 1, 5, 0]]
-        self.assertEqual(find_mst_lenght(matrix), 4)
+        self.assertEqual(find_mst_length(matrix), 4)
 
 
     def test_3(self):
@@ -28,7 +28,7 @@ class TestKraskal(unittest.TestCase):
                   [2, 0, 0, 1, 0, 0, 0, 0],
                   [0, 0, 3, 0, 0, 0, 0, 5],
                   [0, 4, 0, 0, 0, 2, 5, 0]]
-        self.assertEqual(find_mst_lenght(matrix), 14)
+        self.assertEqual(find_mst_length(matrix), 14)
 
 
 if __name__ == "__main__":

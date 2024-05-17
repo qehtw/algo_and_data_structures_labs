@@ -1,5 +1,5 @@
 import unittest
-from fsm_pattern_search import find_pattern_in_text
+from src.fsm_pattern_search import *
 
 
 class TestSearch(unittest.TestCase):
